@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.web.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.oracle.web.bean.Admin">
+    <id column="ADMINID" jdbcType="INTEGER" property="adminid" />
+    <result column="ADMINNAME" jdbcType="VARCHAR" property="adminname" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="TOUXIANG" jdbcType="VARCHAR" property="touxiang" />
+    <result column="ENTRYDAY" jdbcType="DATE" property="entryday" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where ADMINID = #{adminid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oracle.web.bean.Admin">
+    insert into admin (ADMINID, ADMINNAME, USERNAME, 
+      PASSWORD, TOUXIANG, ENTRYDAY
+      )
+    values (#{adminid,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{touxiang,jdbcType=VARCHAR}, #{entryday,jdbcType=DATE}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.oracle.web.bean.Admin">
+    update admin
+    set ADMINNAME = #{adminname,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      TOUXIANG = #{touxiang,jdbcType=VARCHAR},
+      ENTRYDAY = #{entryday,jdbcType=DATE}
+    where ADMINID = #{adminid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ADMINID, ADMINNAME, USERNAME, PASSWORD, TOUXIANG, ENTRYDAY
+    from admin
+    where ADMINID = #{adminid,jdbcType=INTEGER}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select ADMINID, ADMINNAME, USERNAME, PASSWORD, TOUXIANG, ENTRYDAY
+    from admin
+  </select>
+  <select id="FindByUsername" parameterType="string" resultType="com.oracle.web.bean.Admin">
+    select * from admin where username = #{username}
+  </select>
+
+</mapper>
